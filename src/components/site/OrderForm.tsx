@@ -7,12 +7,15 @@ import { useToast } from '@/hooks/use-toast';
 
 const servicesList = ['Серверы', 'Сети', 'Техподдержка', 'Бэкапы', 'Рабочие места', 'Мониторинг'];
 
+const ORDER_URL = 'https://functions.poehali.dev/d64b2245-c168-438e-9f8f-f20e3be8606c';
+
 const OrderForm = () => {
   const { toast } = useToast();
   const [form, setForm] = useState({ name: '', phone: '', company: '', message: '' });
   const [picked, setPicked] = useState<string[]>([]);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [sent, setSent] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const toggle = (s: string) =>
     setPicked((p) => (p.includes(s) ? p.filter((x) => x !== s) : [...p, s]));
@@ -25,11 +28,28 @@ const OrderForm = () => {
     return Object.keys(e).length === 0;
   };
 
-  const submit = (ev: React.FormEvent) => {
+  const submit = async (ev: React.FormEvent) => {
     ev.preventDefault();
-    if (!validate()) return;
-    setSent(true);
-    toast({ title: 'Заявка отправлена!', description: 'Свяжемся с вами в течение 15 минут.' });
+    if (!validate() || loading) return;
+    setLoading(true);
+    try {
+      const res = await fetch(ORDER_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...form, services: picked }),
+      });
+      if (!res.ok) throw new Error();
+      setSent(true);
+      toast({ title: 'Заявка отправлена!', description: 'Свяжемся с вами в течение 15 минут.' });
+    } catch {
+      toast({
+        title: 'Не удалось отправить',
+        description: 'Попробуйте ещё раз или позвоните нам.',
+        variant: 'destructive',
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -130,10 +150,11 @@ const OrderForm = () => {
                   <Button
                     type="submit"
                     size="lg"
+                    disabled={loading}
                     className="w-full h-12 rounded-xl font-semibold bg-primary hover:bg-primary/90 shadow-lg shadow-primary/25"
                   >
-                    Отправить заявку
-                    <Icon name="Send" size={16} className="ml-1.5" />
+                    {loading ? 'Отправляем…' : 'Отправить заявку'}
+                    <Icon name={loading ? 'Loader' : 'Send'} size={16} className={`ml-1.5 ${loading ? 'animate-spin' : ''}`} />
                   </Button>
                   <p className="text-xs text-muted-foreground text-center">
                     Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности

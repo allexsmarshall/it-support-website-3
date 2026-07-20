@@ -4,6 +4,8 @@ import { Button } from '@/components/ui/button';
 
 const links = [
   { label: 'Услуги', href: '#services' },
+  { label: 'Кейсы', href: '#cases' },
+  { label: 'Тарифы', href: '#pricing' },
   { label: 'О компании', href: '#about' },
   { label: 'Контакты', href: '#contacts' },
 ];
