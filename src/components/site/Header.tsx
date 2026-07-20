@@ -37,7 +37,7 @@ const Header = () => {
             <Icon name="Hexagon" size={20} className="text-white" />
           </div>
           <span className="font-display font-bold text-xl tracking-tight">
-            Nexus<span className="text-primary">Tech</span>
+            Servis<span className="text-primary">911</span>
           </span>
         </button>
 

@@ -13,7 +13,7 @@ const Footer = () => {
                 <Icon name="Hexagon" size={20} className="text-white" />
               </div>
               <span className="font-display font-bold text-xl">
-                Nexus<span className="text-primary">Tech</span>
+                Servis<span className="text-primary">911</span>
               </span>
             </div>
             <p className="text-sm text-muted-foreground">
@@ -50,7 +50,7 @@ const Footer = () => {
         </div>
 
         <div className="mt-12 pt-8 border-t border-border flex flex-col sm:flex-row justify-between gap-3 text-sm text-muted-foreground">
-          <span>© 2026 NexusTech. Все права защищены.</span>
+          <span>© 2026 Servis911. Все права защищены.</span>
           <span>Политика конфиденциальности · Договор оферты</span>
         </div>
       </div>

@@ -3,7 +3,7 @@ import Icon from '@/components/ui/icon';
 const items = [
   { icon: 'Phone', label: 'Телефон', value: '+7 (960) 411-49-11', href: 'tel:+79604114911' },
   { icon: 'Phone', label: 'Телефон', value: '+7 (918) 189-68-80', href: 'tel:+79181896880' },
-  { icon: 'Mail', label: 'Email', value: 'help@nexustech.ru', href: 'mailto:help@nexustech.ru' },
+  { icon: 'Mail', label: 'Email', value: 'help@servis911.ru', href: 'mailto:help@servis911.ru' },
   { icon: 'MapPin', label: 'Офис', value: 'Москва, ул. Тверская, 12', href: '#' },
 ];
 
