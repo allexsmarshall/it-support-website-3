@@ -1,3 +1,5 @@
 {
+  "admin_auth": "https://functions.poehali.dev/e74f4a08-4f6a-49c6-9690-63a72236cbfb",
+  "admin_orders": "https://functions.poehali.dev/d303913a-35e0-4cf9-976e-207035627006",
   "order": "https://functions.poehali.dev/d64b2245-c168-438e-9f8f-f20e3be8606c"
 }
