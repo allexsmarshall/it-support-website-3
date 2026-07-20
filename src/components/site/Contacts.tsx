@@ -1,10 +1,10 @@
 import Icon from '@/components/ui/icon';
 
 const items = [
-  { icon: 'Phone', label: 'Телефон', value: '+7 (495) 123-45-67', href: 'tel:+74951234567' },
+  { icon: 'Phone', label: 'Телефон', value: '+7 (960) 411-49-11', href: 'tel:+79604114911' },
+  { icon: 'Phone', label: 'Телефон', value: '+7 (918) 189-68-80', href: 'tel:+79181896880' },
   { icon: 'Mail', label: 'Email', value: 'help@nexustech.ru', href: 'mailto:help@nexustech.ru' },
   { icon: 'MapPin', label: 'Офис', value: 'Москва, ул. Тверская, 12', href: '#' },
-  { icon: 'Clock', label: 'Поддержка', value: 'Круглосуточно, 24/7', href: '#' },
 ];
 
 const Contacts = () => {
@@ -26,7 +26,7 @@ const Contacts = () => {
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {items.map((c) => (
             <a
-              key={c.label}
+              key={c.value}
               href={c.href}
               className="group rounded-3xl bg-card border border-border p-7 transition-all duration-300 hover:-translate-y-1.5 hover:border-primary/40"
             >
