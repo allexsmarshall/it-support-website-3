@@ -5,6 +5,7 @@ import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
 import Icon from '@/components/ui/icon';
+import * as XLSX from 'xlsx';
 
 const ADMIN_AUTH_URL = 'https://functions.poehali.dev/e74f4a08-4f6a-49c6-9690-63a72236cbfb';
 const ADMIN_ORDERS_URL = 'https://functions.poehali.dev/d303913a-35e0-4cf9-976e-207035627006';
@@ -132,6 +133,24 @@ const OrdersPanel = ({ token, onLogout }: { token: string; onLogout: () => void 
 
   const filtered = filter === 'all' ? orders : orders.filter((o) => o.status === filter);
 
+  const exportToExcel = () => {
+    const rows = filtered.map((o) => ({
+      'Дата': o.created_at,
+      'Имя': o.name,
+      'Телефон': o.phone,
+      'Компания': o.company || '',
+      'Услуги': o.services || '',
+      'Задача': o.message || '',
+      'Статус': STATUS_LABELS[o.status],
+    }));
+    const sheet = XLSX.utils.json_to_sheet(rows);
+    sheet['!cols'] = [{ wch: 16 }, { wch: 20 }, { wch: 16 }, { wch: 20 }, { wch: 24 }, { wch: 32 }, { wch: 12 }];
+    const book = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(book, sheet, 'Заявки');
+    const date = new Date().toISOString().slice(0, 10);
+    XLSX.writeFile(book, `заявки_${date}.xlsx`);
+  };
+
   const counts = {
     all: orders.length,
     new: orders.filter((o) => o.status === 'new').length,
@@ -164,10 +183,16 @@ const OrdersPanel = ({ token, onLogout }: { token: string; onLogout: () => void 
               {f === 'all' ? 'Все' : STATUS_LABELS[f]} ({counts[f]})
             </button>
           ))}
-          <Button variant="outline" size="sm" onClick={load} className="ml-auto">
-            <Icon name="RefreshCw" size={14} className="mr-2" />
-            Обновить
-          </Button>
+          <div className="ml-auto flex gap-2">
+            <Button variant="outline" size="sm" onClick={exportToExcel} disabled={filtered.length === 0}>
+              <Icon name="FileDown" size={14} className="mr-2" />
+              Экспорт в Excel
+            </Button>
+            <Button variant="outline" size="sm" onClick={load}>
+              <Icon name="RefreshCw" size={14} className="mr-2" />
+              Обновить
+            </Button>
+          </div>
         </div>
 
         {loading ? (
