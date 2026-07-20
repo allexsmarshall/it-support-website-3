@@ -7,6 +7,7 @@ import About from '@/components/site/About';
 import OrderForm from '@/components/site/OrderForm';
 import Contacts from '@/components/site/Contacts';
 import Footer from '@/components/site/Footer';
+import FloatingCta from '@/components/site/FloatingCta';
 
 const Index = () => {
   return (
@@ -22,6 +23,7 @@ const Index = () => {
         <Contacts />
       </main>
       <Footer />
+      <FloatingCta />
     </div>
   );
 };
